@@ -1,0 +1,1482 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Accesibilidad de foco por teclado (WCAG 2.2 AA) */
+  :focus-visible {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+  }
+
+  /* Respetar preferencias de reducción de movimiento */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Soporte de área segura para dispositivos móviles con barra de gestos */
+.pb-safe {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+}
+.pb-safe-lg {
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Optimización para visores 3D @google/model-viewer */
+model-viewer {
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+  background-color: transparent;
+  outline: none;
+}
+
+model-viewer::part(default-ar-button) {
+  display: none; /* Usamos nuestro propio botón de diseño premium */
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar estilizada */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Tipografías Gastronómicas de Autor */
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.font-lora {
+  font-family: 'Lora', Georgia, serif;
+}
+.font-jakarta {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+.font-outfit {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Texturas de Atmósfera */
+.texture-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.texture-slate {
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%), linear-gradient(225deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%), linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%), linear-gradient(315deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%);
+  background-position: 10px 0, 10px 0, 0 0, 0 0;
+  background-size: 20px 20px;
+}
+.texture-marble {
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.035) 0%, transparent 65%);
+}
+
+/* Ocultar barra de scroll para contenedores deslizables en moviles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==========================================================================
+   SISTEMA DE TEMAS Y VARIABLES (TOKENS) - LANDING & EXPERIENCIA
+   ========================================================================== */
+
+/* TEMA 1: NORDIC BISTRO (Default Landing) */
+.theme-nordic {
+  --bg-main: #F8F6F0;
+  --bg-card: #FFFFFF;
+  --border-subtle: rgba(25, 25, 25, 0.08);
+  --text-primary: #191919;
+  --text-muted: #666666;
+  --accent-primary: #2D4030; /* Verde Olivo Botánico */
+  --accent-secondary: #D89B00; /* Mostaza Orgánica */
+  --font-heading: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(rgba(45, 64, 48, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+  background-size: 24px 24px, 100% 100%;
+}
+
+/* TEMA 2: DEEP OBSIDIAN (Lujo Nocturno) */
+.theme-obsidian {
+  --bg-main: #121113;
+  --bg-card: #1C1A1E;
+  --border-subtle: rgba(240, 236, 225, 0.1);
+  --text-primary: #F0ECE1;
+  --text-muted: #9E9B93;
+  --accent-primary: #C87A51; /* Cobre Cálido */
+  --accent-secondary: #E8A87C; /* Champán */
+  --font-heading: 'Cinzel', 'Playfair Display', serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(rgba(200, 122, 81, 0.05) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(200, 122, 81, 0.08) 0%, transparent 70%);
+  background-size: 20px 20px, 100% 100%;
+}
+
+/* TEMA 3: NEOBRUTALISM (Tech High-Contrast) */
+.theme-neobrutalism {
+  --bg-main: #050505;
+  --bg-card: #111111;
+  --border-subtle: #222222;
+  --text-primary: #FFFFFF;
+  --text-muted: #888888;
+  --accent-primary: #FF4D00; /* Naranja Fuego */
+  --accent-secondary: #555555;
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    linear-gradient(rgba(255, 77, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 77, 0, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* VOLUM corporate landing */
+.volum-corporate {
+  position: relative;
+  isolation: isolate;
+  font-family: 'Inter', system-ui, sans-serif;
+  background:
+    radial-gradient(ellipse at 50% -18%, rgba(37, 99, 235, 0.1), transparent 42%),
+    #0b0f19;
+}
+
+.volum-corporate :focus-visible {
+  outline: 2px solid #00d2ff;
+  outline-offset: 3px;
+}
+
+.ambient-light {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-orb {
+  position: absolute;
+  width: 35rem;
+  height: 35rem;
+  border-radius: 9999px;
+  filter: blur(130px);
+  opacity: 0.11;
+}
+
+.ambient-orb-one {
+  top: 38rem;
+  left: -27rem;
+  background: #00d2ff;
+}
+
+.ambient-orb-two {
+  top: 76rem;
+  right: -27rem;
+  background: #10b981;
+}
+
+.volum-mark {
+  display: inline-flex;
+  width: 27px;
+  height: 27px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  border-radius: 9px;
+  background: linear-gradient(145deg, rgba(0, 210, 255, 0.2), rgba(37, 99, 235, 0.16));
+  box-shadow: 0 0 22px rgba(0, 210, 255, 0.12), inset 0 0 10px rgba(0, 210, 255, 0.1);
+  color: #a5f3fc;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.nav-link,
+.footer-link {
+  color: #929bac;
+  font-size: 11px;
+  transition: color 180ms ease;
+}
+
+.nav-link:hover,
+.footer-link:hover {
+  color: #a5f3fc;
+}
+
+.button-primary,
+.button-secondary,
+.button-outline {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 12px;
+  padding: 0 19px;
+  font-size: 12px;
+  font-weight: 650;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.button-primary {
+  border: 1px solid rgba(165, 243, 252, 0.55);
+  background: linear-gradient(105deg, #00d2ff, #4a8dff 90%);
+  box-shadow: 0 8px 26px rgba(0, 140, 255, 0.16);
+  color: #06101b;
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(0, 170, 255, 0.3);
+}
+
+.button-secondary,
+.button-outline {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(15, 23, 42, 0.56);
+  color: #d3dae5;
+}
+
+.button-secondary:hover,
+.button-outline:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 210, 255, 0.4);
+  background: rgba(0, 210, 255, 0.06);
+  color: #b7f4ff;
+}
+
+.hero-section {
+  isolation: isolate;
+}
+
+.hero-grid,
+.product-grid {
+  background-image:
+    linear-gradient(rgba(119, 190, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(119, 190, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 92%);
+}
+
+.hero-halo {
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 74% 44%, rgba(0, 210, 255, 0.095), transparent 31%),
+    radial-gradient(ellipse at 45% 88%, rgba(37, 99, 235, 0.07), transparent 35%);
+}
+
+.gradient-text {
+  background: linear-gradient(105deg, #b6f4ff 4%, #00d2ff 44%, #6699ff 94%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-orbit {
+  position: absolute;
+  border: 1px solid rgba(105, 204, 255, 0.16);
+  border-radius: 50%;
+  transform: rotate(-24deg);
+}
+
+.hero-orbit-outer {
+  width: 95%;
+  height: 53%;
+  animation: volum-orbit 36s linear infinite;
+}
+
+.hero-orbit-inner {
+  width: 74%;
+  height: 43%;
+  border-color: rgba(105, 204, 255, 0.1);
+  transform: rotate(55deg);
+}
+
+.hero-visual::before,
+.hero-visual::after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8beaff;
+  box-shadow: 0 0 14px #00d2ff;
+  content: '';
+}
+
+.hero-visual::before {
+  top: 18%;
+  right: 22%;
+}
+
+.hero-visual::after {
+  bottom: 17%;
+  left: 21%;
+  width: 4px;
+  height: 4px;
+  background: #10b981;
+  box-shadow: 0 0 14px #10b981;
+}
+
+.floating-chip {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  background: rgba(11, 18, 30, 0.78);
+  padding: 10px 13px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+  color: #cbd5e1;
+  font-size: 10px;
+  backdrop-filter: blur(14px);
+  animation: volum-float 5s ease-in-out infinite;
+}
+
+.floating-chip-one {
+  top: 22%;
+  left: 2%;
+}
+
+.floating-chip-two {
+  right: 1%;
+  bottom: 28%;
+  animation-delay: -1.7s;
+}
+
+.floating-chip-three {
+  bottom: 11%;
+  left: 15%;
+  animation-delay: -3.2s;
+}
+
+.service-card,
+.startup-card,
+.pages-card {
+  transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 210, 255, 0.22);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.15);
+}
+
+.startup-card:hover,
+.pages-card:hover {
+  border-color: rgba(148, 210, 255, 0.18);
+}
+
+.burger-3d {
+  transition: transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: drop-shadow(0 0 26px rgba(245, 158, 11, 0.08));
+  will-change: transform;
+}
+
+.preview-control {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #94a3b8;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.preview-control:hover {
+  border-color: rgba(0, 210, 255, 0.35);
+  background: rgba(0, 210, 255, 0.07);
+  color: #a5f3fc;
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(72, 152, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(72, 152, 255, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(110deg, transparent, black 30%, black 70%, transparent);
+}
+
+.contact-input {
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 12px 13px;
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.5;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.contact-input::placeholder {
+  color: #64748b;
+}
+
+.contact-input:focus {
+  border-color: rgba(0, 210, 255, 0.5);
+  outline: none;
+  background: rgba(0, 210, 255, 0.025);
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.08);
+}
+
+.contact-input[aria-invalid='true'] {
+  border-color: rgba(251, 113, 133, 0.6);
+}
+
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 13px;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.contact-detail:hover {
+  border-color: rgba(0, 210, 255, 0.18);
+  background: rgba(0, 210, 255, 0.025);
+}
+
+.contact-icon {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 210, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(0, 210, 255, 0.07);
+  color: #8beaff;
+}
+
+.contact-icon-green {
+  border-color: rgba(16, 185, 129, 0.15);
+  background: rgba(16, 185, 129, 0.07);
+  color: #6ee7b7;
+}
+
+.social-link {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 10px;
+  color: #94a3b8;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+
+.social-link:hover {
+  border-color: rgba(0, 210, 255, 0.3);
+  background: rgba(0, 210, 255, 0.06);
+  color: #a5f3fc;
+}
+
+@keyframes volum-orbit {
+  to { transform: rotate(336deg); }
+}
+
+@keyframes volum-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+@keyframes blueprint-scan {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(190px); opacity: 0.9; }
+}
+
+@media (max-width: 640px) {
+  .floating-chip {
+    gap: 6px;
+    padding: 8px 9px;
+    font-size: 8px;
+  }
+
+  .floating-chip-one {
+    left: -1%;
+  }
+
+  .floating-chip-two {
+    right: -2%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orbit,
+  .floating-chip,
+  .wireframe-panel [class*='animate-'] {
+    animation: none !important;
+  }
+}
+
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* TEMA: PURE MINIMALIST WHITE (Modo Blanco Diurno / Apple / Notion) */
+.theme-pure-white {
+  --bg-main: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --border-subtle: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-muted: #64748B;
+  --accent-primary: #0284C7;
+  --accent-secondary: #0369A1;
+  --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-main);
+  background-image: radial-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* TEMA: NORDIC BISTRO & WARM CREAM (Crema Orgánica & Salvia) */
+.theme-nordic-warm {
+  --bg-main: #FAF6F0;
+  --bg-card: #FFFDF9;
+  --border-subtle: #E6DEC8;
+  --text-primary: #1F1B18;
+  --text-muted: #6E6259;
+  --accent-primary: #2D5A46;
+  --accent-secondary: #C4841D;
+  background-color: var(--bg-main) !important;
+  background-image: radial-gradient(rgba(45, 90, 70, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.theme-nordic-warm .bg-white:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-nordic-warm .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-nordic-warm .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FFFDF9 !important;
+  border-color: #E6DEC8 !important;
+}
+
+/* TEMA: NEO-BRUTALISM & STREET FOOD (Bordes Marcados y Naranja Flama) */
+.theme-admin-neobrutalism {
+  --bg-main: #FFFBEB;
+  --bg-card: #FFFFFF;
+  --border-subtle: #0F172A;
+  --text-primary: #0F172A;
+  --text-muted: #475569;
+  --accent-primary: #FF4D00;
+  --accent-secondary: #FBBF24;
+  background-color: #FFFBEB !important;
+  background-image: 
+    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Sidebar en Neo-Brutalism */
+.theme-admin-neobrutalism aside:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FFFFFF !important;
+  border-right: 2px solid #0F172A !important;
+  box-shadow: 4px 0px 0px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Navegación activa en Sidebar Neo-Brutalism: SOLO el botón activo tiene fondo amarillo y sombra dura */
+.theme-admin-neobrutalism nav button.is-nav-active:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FFE600 !important;
+  color: #0F172A !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 3px 3px 0px #0F172A !important;
+  font-weight: 900 !important;
+}
+
+.theme-admin-neobrutalism nav button.is-nav-active *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #0F172A !important;
+}
+
+/* Navegación inactiva en Sidebar Neo-Brutalism: Fondo transparente, sin sombra, texto slate legible */
+.theme-admin-neobrutalism nav button.is-nav-inactive:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: transparent !important;
+  color: #475569 !important;
+  border: 2px solid transparent !important;
+  box-shadow: none !important;
+  font-weight: 700 !important;
+}
+
+.theme-admin-neobrutalism nav button.is-nav-inactive *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #475569 !important;
+}
+
+.theme-admin-neobrutalism nav button.is-nav-inactive:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FEF3C7 !important;
+  color: #0F172A !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 2px 2px 0px #0F172A !important;
+}
+
+.theme-admin-neobrutalism nav button.is-nav-inactive:hover *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #0F172A !important;
+}
+
+/* Widgets del Sidebar: Slots 3D, Sesión, Logout */
+.theme-admin-neobrutalism aside .p-3.rounded-2xl:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism aside .p-2\.5.rounded-xl:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FFFFFF !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 2.5px 2.5px 0px #0F172A !important;
+}
+
+.theme-admin-neobrutalism aside button:has(svg.lucide-log-out):not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FEE2E2 !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 2px 2px 0px #0F172A !important;
+  color: #991B1B !important;
+}
+
+/* Selector de Tema en Sidebar */
+.theme-admin-neobrutalism aside button:has(svg.lucide-chevron-down):not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  border: 2px solid #0F172A !important;
+  box-shadow: 2px 2px 0px #0F172A !important;
+}
+
+/* TODAS LAS CARDS EN TODAS LAS PESTAÑAS (Platillos, Cómo Escanear 3D, Bóveda, QR, Meseros, Billing, IA) */
+.theme-admin-neobrutalism .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-900\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-900\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-white:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism div[class*="rounded-3xl"]:not(aside):not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .p-5.rounded-3xl:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .p-6.rounded-3xl:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FFFFFF !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 4px 4px 0px #0F172A !important;
+}
+
+/* Sub-tarjetas / Cajitas anidadas (ej. reglas en Cómo Escanear, Scaniverse, sub-detalles) */
+.theme-admin-neobrutalism .bg-slate-950:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-950\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-950\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-950\/40:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-slate-900 .bg-slate-950:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism .bg-white .bg-slate-950:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FFFDF0 !important;
+  border: 1.5px solid #0F172A !important;
+  box-shadow: 2px 2px 0px #0F172A !important;
+}
+
+/* Banners y Cajas de Aviso (Modo Prueba, Banner VIP) */
+.theme-admin-neobrutalism div:has(> button[class*="Contratar"]):not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism [class*="bg-amber-500\/10"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism [class*="from-amber-500\/10"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FEF9C3 !important;
+  background-image: none !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 4px 4px 0px #0F172A !important;
+}
+
+/* Botones Principales y de Acción en Neo-Brutalism */
+.theme-admin-neobrutalism button.bg-amber-500:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism a.bg-amber-500:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism button[class*="from-amber-500"]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FF4D00 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 3px 3px 0px #0F172A !important;
+  font-weight: 900 !important;
+}
+
+.theme-admin-neobrutalism button.bg-amber-500:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism a.bg-amber-500:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #0F172A !important;
+}
+
+.theme-admin-neobrutalism button.bg-amber-500:active:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism a.bg-amber-500:active:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #0F172A !important;
+}
+
+/* Botones Secundarios en Neo-Brutalism (Estación Meseros, Ver Menú, Vaciar) */
+.theme-admin-neobrutalism button.bg-slate-800:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism button.bg-slate-800\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism button.bg-slate-800\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism a.bg-slate-800:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism button.border-slate-800:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism button.border-slate-700:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 2.5px 2.5px 0px #0F172A !important;
+  font-weight: 800 !important;
+}
+
+.theme-admin-neobrutalism button.bg-slate-800:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism a.bg-slate-800:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FEF3C7 !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3.5px 3.5px 0px #0F172A !important;
+}
+
+/* Badges e Insignias (Disponible, WebAR 1:1, etc.) */
+.theme-admin-neobrutalism span[class*="rounded-full"]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism span[class*="rounded-md"]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  border: 1.5px solid #0F172A !important;
+  box-shadow: 1.5px 1.5px 0px #0F172A !important;
+}
+
+/* Inputs y Selectores */
+.theme-admin-neobrutalism input:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism select:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-admin-neobrutalism textarea:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #FFFFFF !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 2.5px 2.5px 0px #0F172A !important;
+  color: #0F172A !important;
+}
+
+/* TEMA: MIDNIGHT VELVET & RUBY LOUNGE (Cavas de Vino & Terciopelo) */
+.theme-midnight-velvet {
+  --bg-main: #0F080E;
+  --bg-card: #221321;
+  --border-subtle: rgba(190, 24, 93, 0.25);
+  --text-primary: #FDF2F8;
+  --text-muted: #A89BA7;
+  --accent-primary: #BE185D;
+  --accent-secondary: #FB7185;
+  background-color: #0F080E !important;
+  background-image: 
+    radial-gradient(rgba(190, 24, 93, 0.06) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(190, 24, 93, 0.12) 0%, transparent 70%);
+  background-size: 24px 24px;
+}
+
+.theme-midnight-velvet aside:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #170D16 !important;
+  border-color: rgba(90, 37, 69, 0.45) !important;
+}
+
+.theme-midnight-velvet .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-midnight-velvet .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-midnight-velvet .bg-slate-900\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #221321 !important;
+  border-color: rgba(90, 37, 69, 0.45) !important;
+}
+
+/* TEMA: CYBER TITANIUM & NEO-BISTRO (Dark Kitchens & Neón Cian) */
+.theme-cyber-titanium {
+  --bg-main: #030712;
+  --bg-card: #0F172A;
+  --border-subtle: rgba(6, 182, 212, 0.25);
+  --text-primary: #FFFFFF;
+  --text-muted: #94A3B8;
+  --accent-primary: #06B6D4;
+  --accent-secondary: #8B5CF6;
+  background-color: #030712 !important;
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.theme-cyber-titanium aside:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #080E1A !important;
+  border-color: rgba(6, 182, 212, 0.25) !important;
+}
+
+.theme-cyber-titanium .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-cyber-titanium .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-cyber-titanium .bg-slate-900\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(6, 182, 212, 0.3) !important;
+  box-shadow: 0 4px 25px rgba(6, 182, 212, 0.08) !important;
+}
+
+/* ==========================================================================
+   BLINDAJE DE CONTRASTE: CERO TEXTO BLANCO EN FONDOS BLANCOS / CLAROS
+   Asegura legibilidad perfecta sin importar si componentes internos usan text-white
+   ========================================================================== */
+.admin-theme-light {
+  color: #0f172a;
+}
+.admin-theme-light h1:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light h2:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light h3:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light h4:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light h5:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #0f172a !important;
+}
+.admin-theme-light .text-white:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #0f172a !important;
+}
+.admin-theme-light button.bg-amber-500:not([class*="/"]):not([class*="\\/"]):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light a.bg-amber-500:not([class*="/"]):not([class*="\\/"]):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light button[class*="bg-sky-600"]:not([class*="/"]):not([class*="\\/"]):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light button[class*="bg-orange"]:not([class*="/"]):not([class*="\\/"]):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light button.bg-\[\#FF4D00\]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light [class*="bg-\[\#FF4D00\]"]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .keep-white:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .dish-overlay-badge:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .dish-overlay-badge *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light [data-overlay-badge]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light [data-overlay-badge] *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light [data-floor-table-number]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .floor-table-number:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light button.bg-amber-500:not([class*="/"]):not([class*="\\/"]) *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light a.bg-amber-500:not([class*="/"]):not([class*="\\/"]) *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light button[class*="bg-sky-600"]:not([class*="/"]):not([class*="\\/"]) *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light button.bg-\[\#FF4D00\] *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #ffffff !important;
+}
+.admin-theme-light .text-slate-100:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .text-slate-200:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #0f172a !important;
+}
+.admin-theme-light .text-slate-300:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #334155 !important;
+}
+.admin-theme-light .text-slate-400:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #475569 !important;
+}
+.admin-theme-light .text-slate-500:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #64748b !important;
+}
+
+/* Badges y acentos ámbar en temas claros: contraste alto */
+.admin-theme-light .text-amber-300:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .text-amber-400:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .text-amber-400\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #B45309 !important;
+}
+
+/* Tarjetas y botones seleccionados con tinte ámbar en temas claros (bg-amber-500/15, /10, /20, etc.) */
+.admin-theme-light button[class*="bg-amber-500/"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light div[class*="bg-amber-500/"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FEF3C7 !important;
+  border-color: #F59E0B !important;
+  color: #0F172A !important;
+}
+.admin-theme-light button[class*="bg-amber-500/"] *:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #0F172A !important;
+}
+.admin-theme-light button[class*="bg-amber-500/"] span[class*="text-amber"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light button[class*="bg-amber-500/"] svg:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #B45309 !important;
+}
+.admin-theme-light button[class*="bg-amber-500/"] p:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #475569 !important;
+}
+
+/* Soporte especializado para Neo-Brutalism en tarjetas y opciones seleccionadas */
+.theme-admin-neobrutalism button[class*="bg-amber-500/"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism div[class*="bg-amber-500/"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #FEF08A !important;
+  border: 2px solid #0F172A !important;
+  box-shadow: 3.5px 3.5px 0px #0F172A !important;
+  color: #0F172A !important;
+}
+.theme-admin-neobrutalism button[class*="bg-amber-500/"] *:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #0F172A !important;
+}
+.theme-admin-neobrutalism button[class*="bg-amber-500/"] span[class*="text-amber"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-admin-neobrutalism button[class*="bg-amber-500/"] svg:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #B45309 !important;
+}
+.theme-admin-neobrutalism button[class*="bg-amber-500/"] p:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  color: #334155 !important;
+}
+
+/* Reemplazo automático de contenedores oscuros a tarjetas blancas con sombra suave */
+.admin-theme-light .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-900\/95:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-900\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-900\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-900\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-900\/50:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme-light .bg-slate-950:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-950\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-950\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-950\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-950\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-950\/40:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme-light .border-slate-800:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .border-slate-800\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .border-slate-800\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .border-slate-700:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .border-slate-700\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  border-color: #e2e8f0 !important;
+}
+
+/* Gradientes oscuros convertidos a gradientes claros luminosos */
+.admin-theme-light .bg-gradient-to-r.from-amber-500\/10,
+.admin-theme-light [class*="bg-gradient-to-r"][class*="via-slate-900"]:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-image: linear-gradient(to right, rgba(254, 243, 199, 0.7), rgba(255, 247, 237, 0.8), #ffffff) !important;
+  border-color: #fde68a !important;
+}
+
+/* Zonas de Dropzone / Carga */
+.admin-theme-light .border-dashed:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  border-color: #cbd5e1 !important;
+  background-color: #f8fafc !important;
+}
+.admin-theme-light .border-dashed:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  border-color: #0284c7 !important;
+  background-color: #f0f9ff !important;
+}
+
+/* Formularios e Inputs */
+.admin-theme-light input:not([type="checkbox"]):not([type="radio"]):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light select:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light textarea:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+.admin-theme-light input:not(.phone-simulator-viewport *)::placeholder,
+.admin-theme-light textarea:not(.phone-simulator-viewport *)::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Botones secundarios */
+.admin-theme-light .bg-slate-800:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-800\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-800\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.admin-theme-light .bg-slate-800\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: #e2e8f0 !important;
+}
+.admin-theme-light .hover\:bg-slate-800:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .hover\:bg-slate-700:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.admin-theme-light .shadow-xl:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.admin-theme-light .shadow-2xl:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ==========================================================================
+   TEMA: GLASSMORPHISM FROSTED OBSIDIAN (Especificación Exacta de Mockup)
+   - Fondo: Pitch Black (#000000) con resplandores púrpura difusos
+   - Acento Vibrante: #6C5CE7 (Púrpura Neón Eléctrico)
+   - Translúcido: 15% opacidad con desenfoque de cristal profundo
+   - Títulos: Space Grotesk Bold | Cuerpo: Inter Regular
+   ========================================================================== */
+
+.theme-glass-obsidian {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif !important;
+  background-color: #000000 !important;
+  background-image: 
+    radial-gradient(at 15% 15%, rgba(108, 92, 231, 0.22) 0px, transparent 40%),
+    radial-gradient(at 85% 20%, rgba(108, 92, 231, 0.25) 0px, transparent 45%),
+    radial-gradient(at 50% 85%, rgba(72, 52, 212, 0.18) 0px, transparent 50%),
+    radial-gradient(at 75% 70%, rgba(108, 92, 231, 0.15) 0px, transparent 40%) !important;
+  background-attachment: fixed !important;
+  color: #F8FAFC !important;
+}
+
+/* Tipografía: Títulos en Space Grotesk Bold */
+.theme-glass-obsidian h1:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian h2:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian h3:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian h4:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian .font-heading:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian .font-black:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian .font-extrabold:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #FFFFFF !important;
+}
+
+.theme-glass-obsidian p:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian span:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian button:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian input:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian a:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Barra Lateral en Glassmorphism: Cristal Ahumado 15% con Desenfoque Ultra Profundo */
+.theme-glass-obsidian aside:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: rgba(11, 13, 24, 0.65) !important;
+  backdrop-filter: blur(32px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(190%) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Pestaña Activa de Navegación (Estilo exacto "Home" del Mockup):
+   Píldora de cristal con resplandor púrpura vibrante #6C5CE7 y reflejo interior */
+.theme-glass-obsidian nav button.is-nav-active:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: linear-gradient(90deg, rgba(108, 92, 231, 0.38), rgba(108, 92, 231, 0.14)) !important;
+  border: 1px solid rgba(108, 92, 231, 0.75) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 24px rgba(108, 92, 231, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(16px) !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  border-radius: 0.875rem !important;
+}
+
+.theme-glass-obsidian nav button.is-nav-active *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #FFFFFF !important;
+}
+
+/* Pestaña Inactiva en Sidebar: Traslúcida y Discreta */
+.theme-glass-obsidian nav button.is-nav-inactive:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: transparent !important;
+  color: #94A3B8 !important;
+  border: 1px solid transparent !important;
+  font-weight: 600 !important;
+}
+
+.theme-glass-obsidian nav button.is-nav-inactive *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #94A3B8 !important;
+}
+
+.theme-glass-obsidian nav button.is-nav-inactive:hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #FFFFFF !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.theme-glass-obsidian nav button.is-nav-inactive:hover *:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #FFFFFF !important;
+}
+
+/* Widgets del Sidebar: Slots 3D, Sesión, Logout */
+.theme-glass-obsidian aside .p-3.rounded-2xl:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian aside .p-2\.5.rounded-xl:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: rgba(18, 20, 36, 0.6) !important;
+  backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.theme-glass-obsidian aside button:has(svg.lucide-log-out):not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  color: #FCA5A5 !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.theme-glass-obsidian aside button:has(svg.lucide-log-out):hover:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: rgba(239, 68, 68, 0.45) !important;
+  color: #FFFFFF !important;
+}
+
+/* Cabecera Móvil en Glassmorphism */
+.theme-glass-obsidian header:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: rgba(11, 13, 24, 0.8) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* TODAS LAS TARJETAS (Platillos, Cómo Escanear 3D, Códigos QR, Meseros, Bóveda, Billing)
+   Cristal Ahumado Obsidian con 15% de opacidad y reflejo satinado */
+.theme-glass-obsidian .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-slate-900\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-slate-900\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian div[class*="rounded-3xl"]:not(aside):not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .p-5.rounded-3xl:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .p-6.rounded-3xl:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background: rgba(22, 24, 40, 0.55) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.65), inset 0 1px 1px 0 rgba(255, 255, 255, 0.18) !important;
+  color: #F8FAFC !important;
+}
+
+.theme-glass-obsidian .bg-slate-900:hover:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian div[class*="rounded-3xl"]:not(aside):hover:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  border-color: rgba(108, 92, 231, 0.55) !important;
+  box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.75), 0 0 30px rgba(108, 92, 231, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Sub-tarjetas y Bloques Anidados */
+.theme-glass-obsidian .bg-slate-950:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-slate-950\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-slate-950\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-slate-950\/40:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background: rgba(10, 11, 22, 0.65) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #E2E8F0 !important;
+}
+
+/* Botones Primarios y Acentos Neón Vibrante (#6C5CE7) */
+.theme-glass-obsidian .bg-amber-500:not(.is-nav-active):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian button[class*="bg-amber-500"]:not(.is-nav-active):not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: linear-gradient(135deg, #6C5CE7 0%, #5844D6 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px rgba(108, 92, 231, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.theme-glass-obsidian .bg-amber-500:hover:not(.is-nav-active):not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian button[class*="bg-amber-500"]:hover:not(.is-nav-active):not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  background: linear-gradient(135deg, #7D6EF0 0%, #6C5CE7 100%) !important;
+  box-shadow: 0 12px 28px rgba(108, 92, 231, 0.55), 0 0 24px rgba(108, 92, 231, 0.4) !important;
+}
+
+/* Badges e Insignias WebAR / Disponibilidad con Resplandor #6C5CE7 */
+.theme-glass-obsidian span[class*="bg-amber-500\/"]:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-amber-500\/10:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-amber-500\/15:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-glass-obsidian .bg-amber-500\/20:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background: rgba(108, 92, 231, 0.2) !important;
+  color: #C7C2FE !important;
+  border: 1px solid rgba(108, 92, 231, 0.45) !important;
+  box-shadow: 0 0 14px rgba(108, 92, 231, 0.25) !important;
+  backdrop-filter: blur(10px) !important;
+  font-weight: 600 !important;
+}
+
+/* Precios y Acentos en Catálogo */
+.theme-glass-obsidian .text-amber-400:not(.phone-simulator-viewport):not(.phone-simulator-viewport *),
+.theme-glass-obsidian .text-amber-300:not(.phone-simulator-viewport):not(.phone-simulator-viewport *) {
+  color: #C7C2FE !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+
+
+
+/* ==========================================================================
+   SOPORTE NATIVO DE TARJETAS EN TEMA PURE MINIMALIST WHITE
+   (Excluyendo siempre el Simulador de Teléfono 1:1)
+   ========================================================================== */
+.theme-pure-white main .bg-slate-900:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-900\/95:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-900\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-900\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-900\/70:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-900\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.theme-pure-white main .bg-slate-950:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-950\/90:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-950\/80:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-950\/60:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)),
+.theme-pure-white main .bg-slate-950\/40:not(:where(.phone-simulator-viewport, .phone-simulator-viewport *)) {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* ==========================================================================
+   BLINDAJE TOTAL E INMUNIDAD ABSOLUTA DEL SIMULADOR 1:1 DE CELULAR
+   Garantiza que el Menú Comensal en el simulador se visualice exactamente 1:1,
+   100% impermeable e independiente de cualquier tema de la Consola de Administración
+   (Pure White, Neo-Brutalism, Frosted Obsidian, Midnight Velvet, Cyber Titanium, etc.)
+   ========================================================================== */
+html body .phone-simulator-viewport {
+  color-scheme: dark !important;
+  color: #f8fafc !important;
+  isolation: isolate;
+}
+
+html body .phone-simulator-viewport,
+html body .phone-simulator-viewport * {
+  box-sizing: border-box;
+}
+
+/* Fondos Slate Originales del Comensal */
+html body .phone-simulator-viewport .bg-slate-900 {
+  background-color: #0f172a !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/95 {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/90 {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/80 {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/70 {
+  background-color: rgba(15, 23, 42, 0.7) !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/60 {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/50 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+html body .phone-simulator-viewport .bg-slate-900\/45 {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+html body .phone-simulator-viewport .bg-slate-950 {
+  background-color: #020617 !important;
+}
+html body .phone-simulator-viewport .bg-slate-950\/95 {
+  background-color: rgba(2, 6, 23, 0.95) !important;
+}
+html body .phone-simulator-viewport .bg-slate-950\/90 {
+  background-color: rgba(2, 6, 23, 0.9) !important;
+}
+html body .phone-simulator-viewport .bg-slate-950\/80 {
+  background-color: rgba(2, 6, 23, 0.8) !important;
+}
+html body .phone-simulator-viewport .bg-slate-950\/70 {
+  background-color: rgba(2, 6, 23, 0.7) !important;
+}
+html body .phone-simulator-viewport .bg-slate-950\/60 {
+  background-color: rgba(2, 6, 23, 0.6) !important;
+}
+html body .phone-simulator-viewport .bg-slate-950\/40 {
+  background-color: rgba(2, 6, 23, 0.4) !important;
+}
+html body .phone-simulator-viewport .bg-slate-800 {
+  background-color: #1e293b !important;
+}
+html body .phone-simulator-viewport .bg-slate-800\/90 {
+  background-color: rgba(30, 41, 59, 0.9) !important;
+}
+html body .phone-simulator-viewport .bg-slate-800\/80 {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+}
+html body .phone-simulator-viewport .bg-slate-800\/60 {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+}
+html body .phone-simulator-viewport .bg-slate-100 {
+  background-color: #f1f5f9 !important;
+}
+html body .phone-simulator-viewport .bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Bordes Originales del Comensal */
+html body .phone-simulator-viewport .border-slate-800 {
+  border-color: #1e293b !important;
+}
+html body .phone-simulator-viewport .border-slate-800\/90 {
+  border-color: rgba(30, 41, 59, 0.9) !important;
+}
+html body .phone-simulator-viewport .border-slate-800\/80 {
+  border-color: rgba(30, 41, 59, 0.8) !important;
+}
+html body .phone-simulator-viewport .border-slate-800\/70 {
+  border-color: rgba(30, 41, 59, 0.7) !important;
+}
+html body .phone-simulator-viewport .border-slate-800\/60 {
+  border-color: rgba(30, 41, 59, 0.6) !important;
+}
+html body .phone-simulator-viewport .border-slate-700 {
+  border-color: #334155 !important;
+}
+html body .phone-simulator-viewport .border-slate-700\/80 {
+  border-color: rgba(51, 65, 85, 0.8) !important;
+}
+html body .phone-simulator-viewport .border-slate-700\/70 {
+  border-color: rgba(51, 65, 85, 0.7) !important;
+}
+html body .phone-simulator-viewport .border-slate-700\/60 {
+  border-color: rgba(51, 65, 85, 0.6) !important;
+}
+html body .phone-simulator-viewport .border-white {
+  border-color: #ffffff !important;
+}
+
+/* Textos Originales */
+html body .phone-simulator-viewport .text-white {
+  color: #ffffff !important;
+}
+html body .phone-simulator-viewport .text-slate-100 {
+  color: #f1f5f9 !important;
+}
+html body .phone-simulator-viewport .text-slate-200 {
+  color: #e2e8f0 !important;
+}
+html body .phone-simulator-viewport .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+html body .phone-simulator-viewport .text-slate-400 {
+  color: #94a3b8 !important;
+}
+html body .phone-simulator-viewport .text-slate-500 {
+  color: #64748b !important;
+}
+html body .phone-simulator-viewport .text-slate-950 {
+  color: #020617 !important;
+}
+html body .phone-simulator-viewport .text-amber-400 {
+  color: #fbbf24 !important;
+}
+html body .phone-simulator-viewport .text-amber-300 {
+  color: #fcd34d !important;
+}
+
+/* Los bordes y sombras del simulador 1:1 respetan su estilización nativa sin interferencias de temas */
+
+/* Tipografía de encabezados y párrafos dentro del simulador */
+html body .phone-simulator-viewport h1,
+html body .phone-simulator-viewport h2,
+html body .phone-simulator-viewport h3,
+html body .phone-simulator-viewport h4,
+html body .phone-simulator-viewport h5,
+html body .phone-simulator-viewport p,
+html body .phone-simulator-viewport span,
+html body .phone-simulator-viewport button {
+  letter-spacing: normal !important;
+}
+
+/* ==========================================================================
+   ESTILOS DE IMPRESIÓN EXCLUSIVA DE TICKET TÉRMICO (Anti-Desperdicio de Hojas)
+   ========================================================================== */
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 0mm !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 76mm !important;
+    max-width: 76mm !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ocultar cualquier elemento fuera del contenedor del ticket */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Mostrar única y exclusivamente los tickets térmicos */
+  #thermal-receipt-printable,
+  #thermal-receipt-printable *,
+  #waiter-thermal-receipt,
+  #waiter-thermal-receipt * {
+    visibility: visible !important;
+  }
+
+  #thermal-receipt-printable,
+  #waiter-thermal-receipt {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 76mm !important;
+    max-width: 76mm !important;
+    min-width: 76mm !important;
+    margin: 0 auto !important;
+    padding: 4mm 2mm !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .print-hide,
+  .print\:hidden {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Efecto de borde dentado realista para ticket de restaurante */
+.receipt-sawtooth {
+  background-image: radial-gradient(circle at 10px 0, transparent 0, transparent 5px, #ffffff 5px);
+  background-size: 14px 10px;
+  background-repeat: repeat-x;
+}

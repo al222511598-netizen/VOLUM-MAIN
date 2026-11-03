@@ -1,0 +1,1 @@
+import{_ as r}from"./index-SkClISVQ.js";let e=null;const t=()=>typeof window>"u"||window.customElements&&window.customElements.get("model-viewer")?Promise.resolve():(e||(e=r(()=>import("./model-viewer-engine-CCt8gznl.js"),[]).catch(o=>{console.warn("Aviso: No se pudo precargar @google/model-viewer dinámicamente:",o)})),e);export{t as l};

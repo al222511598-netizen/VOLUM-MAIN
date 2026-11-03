@@ -1,0 +1,1 @@
+const i=t=>{if(!t)return"";if(t.startsWith("http://")||t.startsWith("https://")||t.startsWith("data:")||t.startsWith("blob:"))return t;if(t.startsWith("/models/")||t.startsWith("models/"))return t.startsWith("/")?t:`/${t}`;const s="https://volum-menu.onrender.com/api/v1".replace(/\/api\/v1\/?$/,"").replace(/\/$/,""),a=t.startsWith("/")?t:`/${t}`;return`${s}${a}`};export{i as g};
